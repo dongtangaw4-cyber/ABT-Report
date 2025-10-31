@@ -12,6 +12,17 @@ const ASSETS = [
   '/offline.html'
 ];
 
+const CACHE_NAME = 'abt-report-v2';
+const urlsToCache = [
+  '/',
+  '/ABT-Report/',
+  '/ABT-Report/index.html',
+  '/ABT-Report/report.html',
+  '/ABT-Report/manifest.json',
+  '/ABT-Report/icon192.png',
+  '/ABT-Report/icon512.png'
+];
+
 // ติดตั้ง: แคชไฟล์หลัก
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));

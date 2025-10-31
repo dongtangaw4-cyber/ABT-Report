@@ -1,11 +1,12 @@
- {
-  "name": "ABT Report",
+{
   "short_name": "ABT Report",
-  "start_url": "/ABT-Report/index.html",
-  "scope": "/ABT-Report/",
+  "name": "ศูนย์รับแจ้งปัญหา อบต.ดงตะงาว",
+  "start_url": "./report.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#16a34a",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "icon192.png",
