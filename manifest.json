@@ -1,10 +1,11 @@
 {
-"name": "ABT Report",
+  "name": "ABT Report",
   "short_name": "ABT Report",
   "start_url": "/ABT-Report/index.html",
   "scope": "/ABT-Report/",
-  "display": "standalone",
-  "background_color": "#ffffff",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#16a34a",
   "theme_color": "#16a34a",
   "icons": [
     {
