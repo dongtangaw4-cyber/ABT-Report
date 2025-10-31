@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>ตรวจสอบสถานะ | ABT Report</title>
+  <link rel="icon" href="icon192.png">
+  <link rel="apple-touch-icon" href="icon512.png">
+  <style>
+   html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Kanit', system-ui;
+      background: url('Backgroundธีม.png') center center / cover no-repeat fixed;
+    }
+    body{font-family:Kanit,system-ui;max-width:800px;margin:24px auto;padding:0 16px}
+    .row{display:flex;gap:8px;align-items:center}
+    input{flex:1;padding:10px;border:1px solid #ddd;border-radius:10px}
+    button{padding:10px 14px;border:0;border-radius:10px;background:#16a34a;color:#fff;cursor:pointer}
+    .card{margin-top:14px;padding:12px;border:1px solid #eee;border-radius:12px;background:#fff}
+    img{max-width:160px;border-radius:8px;margin-top:6px}
+  
+	.status-tag {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 999px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #fff;
+	}
+
+	/* สีสถานะ */
+	.s-รับเรื่องแล้ว {
+	background-color: #0ea5e9; /* 💙 ฟ้าสด */
+	}
+
+	.s-กำลังดำเนินการ {
+	background-color: #facc15; /* เหลือง */
+	color: #000;
+	}
+
+	.s-เสร็จสิ้น {
+	background-color: #16a34a; /* เขียว */
+	}
+  </style>
+</head>
+<body>
+   <button onclick="window.history.back()"
+    style="
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #16a34a;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+   ">
+   ⬅️ ย้อนกลับ
+</button>
+  <h2>🔎 ตรวจสอบสถานะ</h2>
+  <div class="row">
+    <input id="q" placeholder="ใส่เบอร์โทร หรือ 4 ตัวท้ายอ้างอิง">
+    <button id="btnSearch">ค้นหา</button>
+  </div>
+  <div id="result" style="margin-top:12px;color:#555"></div>
+
+  <!-- โค้ด JS ทั้งหมดอยู่ในบล็อกเดียว และปิดแท็กให้เรียบร้อย -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+    import {
+      getFirestore, collection, query, where, orderBy, limit, getDocs
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+    // --- Firebase config ของคุณ ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyDR8hVqZ1uDrjRMjK6u_rWO6c7Cs5-vDXw",
+      authDomain: "abt-report.firebaseapp.com",
+      projectId: "abt-report",
+      storageBucket: "abt-report.appspot.com",
+      messagingSenderId: "166748459797",
+      appId: "1:166748459797:web:0cf5693e43a551142a8f1c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    await signInAnonymously(auth);
+
+    const ipt = document.getElementById('q');
+    const btn = document.getElementById('btnSearch');
+    const out = document.getElementById('result');
+
+    btn.addEventListener('click', doSearch);
+
+    async function doSearch(){
+      const kw = (ipt.value || '').trim();
+      if(!kw){ out.textContent = 'พิมพ์คำค้นก่อน'; return; }
+      out.textContent = 'กำลังค้นหา...';
+
+      try{
+        // ค้นด้วยเบอร์เต็มหรือ 4 ตัวท้าย (ใช้ where + range)
+        let qRef = query(
+          collection(db,'reports'),
+          orderBy('phone'),
+          where('phone','>=',kw),
+          where('phone','<=',kw + '\uf8ff'),
+          limit(50)
+        );
+
+        const snap = await getDocs(qRef);
+        if(snap.empty){ out.textContent = 'ไม่พบข้อมูล'; return; }
+
+        out.innerHTML = [...snap.docs].map(d=>{
+          const r = d.data();
+          return `
+            <div class="card">
+              <div><b>ผู้แจ้ง:</b> ${r.name||'-'}</div>
+              <div><b>ประเภท:</b> ${r.category||'-'}</div>
+              <div><b>รายละเอียด:</b> ${r.detail||'-'}</div>
+              <div><b>สถานะ:</b> ${r.status||'-'}</div>
+			  <span style="padding:1px 3px;border-radius:800px;
+              background:${(r.status||'')==='เสร็จสิ้น'?'#16a34a':'#fbbf24'};
+              color:#fff">${r.status||'-'}</span>
+              ${r.lat && r.lng ? `<div><b>พิกัด:</b> ${r.lat}, ${r.lng}</div>`:''}
+              ${r.photo ? `<img src="${r.photo}" alt="รูปแนบ">` : ''}
+			  ${r.lat&&r.lng?`<a target="_blank" href="https://maps.google.com/?q=${r.lat},${r.lng}">เปิดแผนที่</a>`:''}
+            </div>`;
+        }).join('');
+      }catch(err){
+        out.textContent = 'ผิดพลาด: ' + err.message;
+        console.error(err);
+      }
+    }
+	
+	
+  </script>
+</body>
+</html>
