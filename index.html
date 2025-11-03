@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>เมนู | ABT Report</title>
 
   <!-- PWA -->
@@ -20,25 +20,64 @@
       --logo-size: 110px;        /* ขนาดโลโก้ */
     }
 
-    html, body { height: 100%; }
-    body{
-      margin:0;
+    html, body {
+      margin: 0;
+	  height: 100%;
+	  overflow: hidden;
+	  overscroll-behavior: none;
+	  -webkit-overflow-scrolling: auto;
+	  touch-action: none;
       font-family: Kanit, system-ui;
       background: url('Backgroundธีม.png') center / cover no-repeat fixed;
       display:grid; place-items:center;
     }
+	
+	.screen {
+	min-height: 100dvh;
+	display: grid;
+	place-items:center;
+	padding-left: max(16px, env(safe-area-inset-left));
+	padding-right: max(16px, env(safe-area-inset-right));
+	padding-top: max(16px, env(safe-area-inset-top));
+	padding-bottom: max(16px, env(safe-area-inset-bottom));
+	box-sizing: border-box;
+	}
+	
 
     /* การ์ด (ยังมีขอบขาวรอบการ์ดเหมือนเดิม) */
     .card{
-      width:min(var(--card-w), 92vw);
-      background: rgba(255, 255, 255, 0.30);
-      border-radius: 18px;
-      padding: 28px 24px;
-      box-shadow: 0 14px 40px rgba(0,0,0,.12);
-      border: 2px solid rgba(255, 255, 255,0.6);
-      text-align: center;
-	  backdrop-filter: blur(6px);
-    }
+      width:min(94vw, 660px);
+	  max-height: calc(100dvh - 32px);
+	  border-radius: 16px;
+      background: rgba(255, 255, 255, 0.95);
+	  border: 1px solid rgba(255,255,255, .9);
+	  background-clip: padding-box;
+	  box-shadow: 0 12px 40px rgba(0,0,0,.15);
+      padding: 20px;
+	  overflow: hidden;
+    } 
+	
+	.card .scroll-area {
+	  max-height: calc(100dvh - 200px);
+	  overflow: auto;
+	  -webkit-overflow-scrolling: touch;
+	}
+
+	.card h1
+	.card h2
+	.card h3
+	.card p {
+	  text-aligh: center;
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  
+	.card {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-content: center;
+	  }
 
     /* แถวโลโก้ */
     .logo-row{
@@ -99,7 +138,8 @@
   </style>
 </head>
 <body>
-  <main class="card">
+  <div class="screen">
+  <div class="card">
     <div class="logo-row">
       <img class="logo" src="logo.png" alt="โลโก้ อบต.ดงตะงาว" onerror="this.src='icon.png'">
       <img class="logo" src="icon.png" alt="โลโก้ ABT REPORT" onerror="this.src='icon.png'">
