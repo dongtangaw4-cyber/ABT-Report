@@ -1,157 +1,134 @@
 <!doctype html>
 <html lang="th">
 <head>
-  <meta charset="utf-8">
-  <title>ตรวจสอบสถานะ | ABT Report</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8">
+<title>ตรวจสอบสถานะ | ABT Report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Kanit',sans-serif;margin:0;background:url('Backgroundธีม.png')center/cover no-repeat fixed}
+  #btnBack{position:fixed;top:20px;left:20px;background:#16a34a;color:#fff;border:0;padding:10px 16px;border-radius:8px;
+    box-shadow:0 4px 10px rgba(0,0,0,.15);cursor:pointer}
+  .wrap{max-width:720px;margin:120px auto;background:rgba(255,255,255,.92);
+    backdrop-filter:blur(10px);border-radius:16px;padding:20px}
+	
+	h2 {
+	  text-align: center;
+	  font-weight: 700;
+	  font-size: 26px
+	  margin-top: 0;
+	  margin-bottom: 20px;
+	  color: #0f172a;
+	  }
+	
+  .row{display:flex;gap:10px}
+  input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc}
+  button{padding:10px 16px;border:0;border-radius:8px;background:#16a34a;color:#fff;cursor:pointer}
 
-  <!-- ฟอนต์ -->
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  .item{display:flex; gap:14px; align-items:flex-start;
+        background:rgba(255,255,255,.95);margin:12px 0;padding:12px;border-radius:12px;
+        box-shadow:0 4px 16px rgba(0,0,0,.10)}
+  .thumb{width:120px;height:90px;object-fit:cover;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.15)}
+  .text{flex:1;min-width:0}
+  .muted{color:#64748b}
+  .pill{padding:3px 8px;border-radius:10px;font-size:12px}
+  .s-รับเรื่องแล้ว{background:#e0f2fe;color:#0369a1}
+  .s-กำลังดำเนินการ{background:#fef9c3;color:#854d0e}
+  .s-เสร็จสิ้น{background:#dcfce7;color:#166534}
 
-  <style>
-    * { box-sizing: border-box; }
-    html, body {
-      height: 100%;
-      margin: 0;
-      overflow: hidden; /* ล็อกไม่ให้เลื่อน */
-      font-family: 'Kanit', system-ui, sans-serif;
-      background: url('Backgroundธีม.png') center/cover no-repeat fixed;
-    }
+  .warn-text {
+  color: red;
+  font-weight: 600;
+  text-align: left;
+  }
 
-    /* พื้นที่เต็มหน้าจอ + เผื่อ safe-area */
-    .screen {
-      height: 100dvh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: max(16px, env(safe-area-inset-top))
-               max(16px, env(safe-area-inset-right))
-               max(16px, env(safe-area-inset-bottom))
-               max(16px, env(safe-area-inset-left));
-    }
+  .blue {
+  color: #000099;
+  font-weight: 100;
+  }
+	
 
-    /* กล่องกลาง */
-    .card {
-      width: min(90vw, 420px);                 /* พอดีทั้งมือถือและเดสก์ท็อป */
-      background: rgba(255,255,255,.96);
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.15);
-      padding: 22px 20px;
-      text-align: center;
-      backdrop-filter: blur(2px);
-    }
 
-    .card h1 {
-      margin: 0 0 14px;
-      font-size: 24px;
-      font-weight: 700;
-    }
-
-    /* แถวค้นหา */
-    .search {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .search input {
-      flex: 1;
-      max-width: 260px;
-      padding: 10px 12px;
-      font-size: 16px;
-      border: 2px solid #d1d5db;
-      border-radius: 10px;
-      background: #ffffffcc;
-      outline: none;
-      transition: .2s;
-    }
-    .search input:focus {
-      border-color: #16a34a;
-      box-shadow: 0 0 0 3px #16a34a22;
-      background: #fff;
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 10px 16px;
-      background: #16a34a;
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 16px;
-      white-space: nowrap;
-    }
-    .btn:hover { background:#15803d; }
-
-    /* ปุ่มย้อนกลับลอยมุมบนซ้าย */
-    .back {
-      position: fixed;
-      left: max(16px, env(safe-area-inset-left));
-      top:  max(16px, env(safe-area-inset-top));
-      z-index: 50;
-      background:#16a34a;
-      color:#fff;
-      border:0;
-      border-radius:12px;
-      padding:10px 14px;
-      font-weight:700;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      box-shadow:0 6px 20px rgba(0,0,0,.18);
-      cursor:pointer;
-    }
-
-    @media (max-width: 420px){
-      .card h1 { font-size: 22px; }
-    }
-  </style>
+</style>
 </head>
 <body>
+<button id="btnBack">⬅️ ย้อนกลับ</button>
+<div class="wrap">
+  <h2>🔍 ตรวจสอบสถานะของผู้แจ้งปัญหา</h2>
+  
+  <div class="warn-text">**โปรดตรวจสอบเบอร์โทรก่อนกดค้นหา**</div>
 
-  <!-- ปุ่มย้อนกลับ -->
-  <button class="back" id="btnBack" type="button">⬅️ ย้อนกลับ</button>
+  <div class="row">
+    <input id="q" placeholder="กรอกเบอร์โทร หรือ 4 ตัวท้าย">
+    <button id="btnSearch">ค้นหา</button>
+  </div>
+  <div id="result" style="margin-top:10px"></div>
+</div>
 
-  <!-- กล่องเนื้อหา -->
-  <div class="screen">
-    <div class="card">
-      <h1>🔍 ตรวจสอบสถานะ</h1>
-      <form class="search" id="searchForm" autocomplete="off">
-        <input id="kw" type="text"
-               placeholder="ใส่เบอร์โทร หรือ 4 ตัวท้ายอ้างอิง"
-               inputmode="numeric" />
-        <button class="btn" id="btnSearch" type="submit">ค้นหา</button>
-      </form>
-      <div id="result" style="margin-top:12px;color:#6b7280;font-size:14px;"></div>
+<!-- Firebase compat (รันจาก Desktop ได้) -->
+	<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<script>
+	const firebaseConfig={
+	 apiKey:"AIzaSyDR8hVqZ1uDrjRMjK6u_rWO6c7Cs5-vDXw",
+	 authDomain:"abt-report.firebaseapp.com",
+	 projectId:"abt-report",
+	 storageBucket:"abt-report.appspot.com",
+	 messagingSenderId:"166748459797",
+	 appId:"1:166748459797:web:0cf5693e43a551142a8f1c"
+};
+	firebase.initializeApp(firebaseConfig);
+	const db=firebase.firestore();
+	firebase.auth().signInAnonymously();
+
+	btnBack.onclick=()=>history.length>1?history.back():location='index.html';
+
+	const resBox=document.getElementById('result');
+	const fmt=t=>t?.toDate?t.toDate().toLocaleString('th-TH',{year:'numeric',month:'short',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'-';
+	
+	async function search(){
+	const q=document.getElementById('q').value.replace(/\D/g,'');
+	if(!q){ alert('โปรดกรอกเบอร์โทร'); return; }
+	resBox.innerHTML='<div class="muted">กำลังค้นหา...</div>';
+	try{
+    let list=[];
+    if(q.length>=9){
+      const snap=await db.collection('reports').where('phone','==',q).orderBy('createdAt','desc').limit(50).get();
+      list=snap.docs.map(d=>d.data());
+    }else{
+      const snap=await db.collection('reports').orderBy('createdAt','desc').limit(80).get();
+      list=snap.docs.map(d=>d.data()).filter(r=>(r.phone||'').endsWith(q));
+    }
+    if(!list.length){ resBox.innerHTML='<div class="muted">ไม่พบข้อมูล</div>'; return; }
+
+    resBox.innerHTML = list.map(r => `
+  <div class="item">
+    ${r.photo ? `
+      <a href="${r.photo}" target="_blank" rel="noopener">
+        <img class="thumb" src="${r.photo}" alt="รูปแนบ">
+      </a>` 
+      : `<div class="thumb" style="display:flex;align-items:center;justify-content:center;background:#f3f4f6;color:#9ca3af">ไม่มีรูป</div>`}
+    <div class="text">
+      <div class="muted" style="font-size:13px;margin-bottom:4px;">🕒 ${fmt(r.createdAt)}</div>
+      <div><b>ผู้แจ้ง:</b> <span class="blue"> ${r.name || '-'}</span></div>
+      ${r.phone ? `<div><b>เบอร์โทร:</b> <span class="blue"> ${r.phone}</span></div>` : ''}
+      <b>ประเภท:</b> <span class="blue"> ${r.category || '-'}</span><br>
+      <b>รายละเอียด:</b> <span class="blue"> ${r.detail || '-'}</span><br>
+      <b>สถานะ:</b> <span class="blue"> <span class="pill s-${r.status || 'รับเรื่องแล้ว'}">${r.status || 'รับเรื่องแล้ว'}</span></span><br>
+      ${r.lat ? `<div class="muted">พิกัด: ${r.lat}, ${r.lng} · <a href="https://maps.google.com/?q=${r.lat},${r.lng}" target="_blank">เปิดแผนที่</a></div>` : ''}
     </div>
   </div>
+`).join('');
+  }catch(e){
+    console.error(e);
+    resBox.innerHTML='<div class="muted">เกิดข้อผิดพลาด: '+e.message+'</div>';
+  }
+}
+document.getElementById('btnSearch').onclick=search;
+document.getElementById('q').onkeydown=e=>{ if(e.key==='Enter') search(); };
 
-  <script>
-    // ปุ่มย้อนกลับ
-    document.getElementById('btnBack')?.addEventListener('click', () => {
-      if (history.length > 1) history.back();
-      else location.href = 'index.html';
-    });
-
-    // จัดการค้นหา (คง id ไว้ให้ผูกกับโค้ดเดิมได้)
-    const form = document.getElementById('searchForm');
-    const kw   = document.getElementById('kw');
-    const out  = document.getElementById('result');
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const q = (kw.value || '').trim();
-      if (!q) { out.textContent = 'โปรดกรอกข้อมูลเพื่อค้นหา'; return; }
-
-      // ถ้ามีฟังก์ชันค้นหาเดิมอยู่ในโปรเจ็กต์ ให้เรียกใช้ตรงนี้แทน
-      // searchStatus(q);
-      out.textContent = 'กำลังค้นหา…';
-
-      // ตัวอย่างจำลอง (ลบได้)
-      setTimeout(()=>{ out.textContent = 'แสดงผลลัพธ์ของ: ' + q; }, 600);
-    });
-  </script>
+</script>
 </body>
 </html>
