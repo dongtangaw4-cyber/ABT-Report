@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>ABT Report</title>
+
+  <meta name="theme-color" content="#2e7d32" />
+
+  <style>
+    :root{
+      --brand:#2e7d32;
+      --bg:#f1f8e9;
+      --text:#1b1b1b;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:'Kanit', sans-serif; background:url('Backgroundธีม.png');}
+
+    body{
+      display:flex; align-items:center; justify-content:center;
+      background:var(--bg);
+      text-align:center;
+    }
+
+    .card{
+      width:90%; max-width:350px;
+      background:#fff;
+      border-radius:20px;
+      padding:30px 22px;
+      box-shadow:0 12px 40px rgba(0,0,0,.15);
+      animation:fade .8s ease;
+    }
+
+    @keyframes fade{
+      from{opacity:0; transform:translateY(10px);}
+      to{opacity:1; transform:none;}
+    }
+
+    .logo{
+      width:90px; height:90px; margin:auto;
+      background:#fff;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 0 10px rgba(0,0,0,.1);
+      display:flex; align-items:center; justify-content:center;
+    }
+
+    .logo img{width:100%; height:100%; object-fit:cover;}
+
+    h1{margin:14px 0 6px; font-size:22px; color:var(--text);}
+    p{margin:0; color:#666;}
+
+    .bar{
+      height:6px; width:70%;
+      background:#ddd; border-radius:999px;
+      overflow:hidden; margin:20px auto 10px;
+    }
+
+    .prog{
+      height:100%; width:0%;
+      background:var(--brand);
+      animation:load 1.8s forwards ease-in-out;
+    }
+
+    @keyframes load{
+      to{width:100%}
+    }
+
+    .btn{
+      margin-top:12px;
+      display:none;
+      background:var(--brand);
+      padding:10px 16px;
+      border-radius:10px;
+      color:#fff;
+      font-weight:600;
+      text-decoration:none;
+    }
+
+    .hint{font-size:11px; margin-top:10px; color:#777;}
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="logo">
+      <img src="icon192.png" alt="logo">
+    </div>
+
+    <h1>ABT REPORT</h1>
+    <p>กำลังเปิดระบบ…</p>
+
+    <div class="bar"><div class="prog"></div></div>
+
+    <a id="fallback" href="index.html" class="btn">เข้าสู่ระบบ</a>
+    <div class="hint">ถ้าไม่เด้งอัตโนมัติ ให้กดปุ่มด้านบน</div>
+  </div>
+
+<script>
+  // ✅ หลังโหลดเสร็จ ให้ไปหน้า index.html (ของประชาชน)
+  const NEXT = "index.html";
+
+  // พยายามโหลดหน้าเป้าหมายล่วงหน้า
+  try{ fetch(NEXT, {mode:'no-cors'}).catch(()=>{}); }catch{}
+
+  let jumped = false;
+  setTimeout(()=>{ jumped=true; location.href = NEXT; }, 1800);
+
+  // ถ้าไม่เด้ง ให้โชว์ปุ่ม
+  setTimeout(()=>{
+    if(!jumped){
+      document.getElementById("fallback").style.display = "inline-block";
+    }
+  }, 2300);
+</script>
+
+</body>
+</html>
