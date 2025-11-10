@@ -125,6 +125,61 @@
   </style>
 </head>
 <body>
+<!-- ✅ Splash Screen -->
+<div id="splash"
+     style="
+       position:fixed;
+       inset:0;
+       background:url('Backgroundธีม.png') center/cover fixed;
+       display:flex;
+       flex-direction:column;
+       justify-content:center;
+       align-items:center;
+       z-index:99999;
+     ">
+  
+  <div style="
+      background:#fff;
+      padding:100px;
+      width:400px;
+      border-radius:20px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,.15)">
+    
+    <img src="./icon512.png" style="width:150px;height:150px;border-radius:20px">
+    <div style="margin-top:10px;font-family:Kanit;font-weight:700">
+      กำลังโหลดระบบแจ้งปัญหา…
+	  <small>กรุณารอสักครู่.....</small>
+    </div>
+
+    <!-- Progress bar -->
+    <div style="margin-top:12px;height:8px;background:#e5e7eb;border-radius:20px;overflow:hidden;">
+      <div style="
+        height:100%;
+        width:0%;
+        background:#16a34a;
+        animation:loadingBar 1.5s forwards;">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+@keyframes loadingBar {
+  to { width:100%; }
+}
+</style>
+
+<script>
+  // ✅ ซ่อน Splash หลัง 1.3 วินาที
+  setTimeout(() => {
+    const sp = document.getElementById("splash");
+    sp.style.opacity = "0";
+    sp.style.transition = "0.4s";
+    setTimeout(() => sp.style.display = "none", 400);
+  }, 1300);
+</script>
   <div class="screen">
     <div class="card">
       <div class="logo-row" style="display:flex;justify-content:center;align-items:center;gap:1px;">
@@ -139,7 +194,7 @@
       <button class="btn btn-primary" onclick="location.href='report.html'">📝 แจ้งปัญหาใหม่</button>
       <button class="btn btn-secondary" onclick="location.href='track.html'">🔎 ตรวจสอบสถานะ</button>
 
-      <small>© องค์การบริหารส่วนตำบลดงตะงาว อำเภอดอนพุด จังหวัดสระบุรี</small>
+      <small>© องค์การบริหารส่วนตำบลดงตะงาว อำเภอดอนพุด จังหวัดสระบุรี สายด่วนติดต่อ 0-3672-3444</small>
     </div>
   </div>
 
