@@ -70,6 +70,8 @@
     if (!navigator.geolocation) return alert('อุปกรณ์ไม่รองรับการระบุตำแหน่ง');
     resEl.textContent = 'กำลังขอตำแหน่ง...';
     navigator.geolocation.getCurrentPosition(
+	
+	
       pos => {
         latInput.value = pos.coords.latitude.toFixed(6);
         lngInput.value = pos.coords.longitude.toFixed(6);

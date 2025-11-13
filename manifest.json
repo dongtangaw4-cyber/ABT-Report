@@ -1,8 +1,8 @@
 {
   "name": "ABT Report",
   "short_name": "ABT Report",
-  "start_url": "./splash.html/ABT-Report/index.html",
-  "scope": "/ABT-Report/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "fullscreen",
   "orientation": "portrait",
   "background_color": "#16a34a",
