@@ -9,12 +9,12 @@
   "theme_color": "#16a34a",
   "icons": [
     {
-      "src": "icon192.png",
+      "src": "logo192abt.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon512.png",
+      "src": "logo512abt.png",
       "sizes": "512x512",
       "type": "image/png"
     }
