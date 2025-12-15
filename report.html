@@ -16,7 +16,7 @@
 
   <style>
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:'Kanit',system-ui;background:url('Backgroundธีม.png') center/cover no-repeat fixed}
+    html,body{height:100%;margin:0;font-family:'Kanit',system-ui;background:url('Backgroundgreen.png') center/cover no-repeat fixed}
     body{display:flex;justify-content:center;align-items:flex-start;padding-top:clamp(30px,6vh,70px)}
     .container{width:95%;max-width:850px;margin:0 auto;padding:0 16px}
     header{text-align:center;margin-bottom:20px}
@@ -47,42 +47,46 @@
 
   <div class="app-card">
     <form id="reportForm" autocomplete="off">
-      <label>ชื่อ-นามสกุลของผู้แจ้ง</label>
+      <label><span style="color:blue;">ชื่อ-นามสกุลของผู้แจ้ง</span></label>
       <input type="text" name="name" placeholder="กรอกชื่อจริง - นามสกุลของผู้แจ้ง" required>
 
-      <label>ที่อยู่</label>
-      <input name="address" placeholder="กรอกที่อยู่ปัจจุบัน" required>
+      <label>
+	  <span style="color:blue;">กรอกที่อยู่ของผู้แจ้ง</span> 
+	     <small><span style="color:red;"> **(ไม่ต้องกรอก ตำบล อำเภอและจังหวัด)** </span></small>
+	  </label>
+      <input name="address" placeholder="กรอกที่อยู่ปัจจุบัน เช่น เลขที่บ้าน .. หมู่ที่ .." required>
 
-      <label>เบอร์ติดต่อ</label>
+      <label><span style="color:blue;">กรอกเบอร์ติดต่อ</span></label>
       <input name="phone" type="tel" inputmode="tel" required pattern="0[0-9]{8,9}" maxlength="10"
              placeholder="กรอกเบอร์โทร (เช่น 0812345678)"
              title="กรุณากรอกเบอร์โทร 9–10 หลัก และต้องขึ้นต้นด้วย 0">
 
-      <label>ประเภทปัญหา</label>
+      <label><span style="color:blue;">เลือกประเภทปัญหา</label>
       <select name="category" required>
-        <option value="">— เลือก —</option>
+        <option value="">— เลือกปัญหา —</option>
         <option>ถนนชำรุด</option>
         <option>ไฟฟ้าสาธารณะ</option>
         <option>น้ำประปา</option>
         <option>น้ำท่วม</option>
+		<option>ตัดต้นไม้/กิ่งไม้ขวางทาง</option>
         <option>อันตรายจากสัตว์</option>
         <option>ร้องทุกข์อื่นๆ</option>
       </select>
 
-      <label>แนบรูปถ่าย <small>**(จำเป็น)**</small></label>
+      <label><span style="color:blue;">แนบรูปถ่าย <small><span style="color:red;">**(จำเป็น)**</span></small></label>
       <input type="file" id="photo" accept="image/*" required>
       <img id="preview" alt="ตัวอย่างรูป">
 
-      <label>รายละเอียดเพิ่มเติม</label>
+      <label><span style="color:blue;">รายละเอียดเพิ่มเติม</span></label>
       <textarea name="detail" placeholder="โปรดกรอกข้อมูล"></textarea>
 
       <div class="row">
         <div>
-          <label>พิกัดละติจูด</label>
+          <label><span style="color:blue;">พิกัดละติจูด</span></label>
           <input id="lat" name="lat" placeholder="กรอกพิกัดละติจูด เช่น 14.56789">
         </div>
         <div>
-          <label>ลองติจูด</label>
+          <label><span style="color:blue;">ลองติจูด</span></label>
           <input id="lng" name="lng" placeholder="กรอกพิกัดลองติจูด เช่น 100.123456">
         </div>
       </div>
