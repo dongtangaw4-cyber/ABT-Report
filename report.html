@@ -36,6 +36,27 @@
       header h1{font-size:26px;padding:10px 24px}
       body{align-items:flex-start;padding-top:20px}
     }
+.app-card {
+  position: relative;
+}
+
+.guide-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  background: #0066FF;;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.manual-btn {
+	top: 10px;
+}
+
   </style>
 </head>
 <body>
@@ -50,6 +71,10 @@
       <label><span style="color:blue;">ชื่อ-นามสกุลของผู้แจ้ง</span></label>
       <input type="text" name="name" placeholder="กรอกชื่อจริง - นามสกุลของผู้แจ้ง" required>
 
+	<a href="guide.pdf" target="_blank" class="guide-btn">
+	📑คู่มือการใช้งาน ABT Report
+	</a>
+	
       <label>
 	  <span style="color:blue;">กรอกที่อยู่ของผู้แจ้ง</span> 
 	     <small><span style="color:red;"> **(ไม่ต้องกรอก ตำบล อำเภอและจังหวัด)** </span></small>
@@ -77,16 +102,21 @@
       <input type="file" id="photo" accept="image/*" required>
       <img id="preview" alt="ตัวอย่างรูป">
 
-      <label><span style="color:blue;">รายละเอียดเพิ่มเติม</span></label>
+      <label>
+	  <span style="color:blue;">รายละเอียดเพิ่มเติม</span>
+	  <small><span style="color:red;">**(เช่น บริเวณหรือพื้นที่เกิดปัญหา)**</span></small>
+	  </label>
       <textarea name="detail" placeholder="โปรดกรอกข้อมูล"></textarea>
 
       <div class="row">
         <div>
-          <label><span style="color:blue;">พิกัดละติจูด</span></label>
+          <label><span style="color:blue;">พิกัดละติจูด</span>
+		  <small><span style="color:red;">**(กดระบุตำแหน่งอัติโนมัติ ปุ่มสีฟ้า จะขึ้นทั้ง พิกัดละติจูดและพิกัดลองติจูด หรือกรอกเอง)**</span></small>
+		  </label>
           <input id="lat" name="lat" placeholder="กรอกพิกัดละติจูด เช่น 14.56789">
         </div>
         <div>
-          <label><span style="color:blue;">ลองติจูด</span></label>
+          <label><span style="color:blue;">พิกัดลองติจูด</span></label>
           <input id="lng" name="lng" placeholder="กรอกพิกัดลองติจูด เช่น 100.123456">
         </div>
       </div>
